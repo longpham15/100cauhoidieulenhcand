@@ -127,6 +127,21 @@
             font-size: 14px;
             margin-top: 2px;
         }
+        .reset-btn {
+            background-color: #d32f2f;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .reset-btn:hover {
+            background-color: #b71c1c;
+        }
         @media screen và (max-width: 600px) {
             body { padding: 10px; }
             .test-container { padding: 15px; }
@@ -350,6 +365,9 @@ Cơ cấu một ca trực ban, trực chỉ huy bảo đảm theo đúng quy đ�
                     <b>C.</b> Công an các đơn vị, địa phương phải tổ chức nghiêm túc chế độ trực ban, trực chỉ huy bảo đảm quân số thường trực chiến đấu theo quy định của Bộ trưởng Bộ Công an.
 Có danh sách hoặc lịch trực được cấp có thẩm quyền phê duyệt.
                     <span class="feedback-icon"></span>
+                </div>
+                <div style="text-align: center; margin-top: 30px;">
+                <button class="reset-btn" onclick="resetTest('test_div_0')">LÀM LẠI ĐỀ NÀY</button>
                 </div>
             </div>
         </div>
@@ -2211,6 +2229,27 @@ không có lời nói, cử chỉ, hành vi xúc phạm, phân biệt đối x�
                 correctElement.querySelector('.feedback-icon').innerHTML = '✓ Đáp án đúng';
             }
         }
+    }
+    function resetTest(testId) {
+        // Xác định vùng đề muốn làm lại
+        const testContainer = document.getElementById(testId);
+        if (!testContainer) return;
+
+        // 1. Tìm tất cả các option trong đề này
+        const allOptions = testContainer.querySelectorAll('.option');
+        allOptions.forEach(opt => {
+            // Xóa các class đúng/sai và bỏ trạng thái khóa (disabled)
+            opt.classList.remove('correct', 'incorrect', 'disabled');
+        });
+
+        // 2. Xóa các dòng chữ "✓ Đúng", "✗ Sai" ở các icon feedback
+        const allFeedbackIcons = testContainer.querySelectorAll('.feedback-icon');
+        allFeedbackIcons.forEach(icon => {
+            icon.innerHTML = '';
+        });
+
+        // 3. Cuộn mượt mà lên đầu đề để người dùng làm lại
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 </script>
 </body>
